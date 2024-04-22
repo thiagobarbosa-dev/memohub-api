@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/login', to: 'sessions#create'
       resources :users do
+        resources :notebooks
         collection do
         end
       end
