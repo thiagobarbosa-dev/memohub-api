@@ -1,4 +1,3 @@
-# app/controllers/api/v1/api_controller.rb
 class Api::V1::ApiController < ApplicationController
   before_action :authenticate_request
 
