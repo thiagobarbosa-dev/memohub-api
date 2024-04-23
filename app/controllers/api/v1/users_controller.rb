@@ -40,7 +40,15 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    begin
+      @user = User.find(params[:id])
+    rescue => e
+      if e.class == ActiveRecord::RecordNotFound
+        render json: { error: 'User not found' }, status: :not_found
+      else
+        render json: { error: "Internal server error: #{e.message}" }, status: :internal_server_error
+      end
+    end
   end
 
   # Only allow a list of trusted parameters through.
