@@ -1,6 +1,6 @@
 notebook1 = Notebook.find_or_initialize_by(id: 1)
 notebook1.assign_attributes(
-  title: "Admin's Notebook 1",
+  title: "Agro1",
   user_id: 1
   )
 notebook1.save!
