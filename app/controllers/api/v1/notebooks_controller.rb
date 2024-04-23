@@ -10,7 +10,7 @@ class Api::V1::NotebooksController < Api::V1::ApiController
       render json: { error: 'Unauthorized' }, status: :unauthorized
       return
     else
-      @notebooks = Notebook.where(user_id: user_id)
+      @notebooks = current_user.notebooks
       render json: @notebooks
     end
   end
@@ -22,12 +22,19 @@ class Api::V1::NotebooksController < Api::V1::ApiController
 
   # POST /api/v1/users/:user_id/notebooks
   def create
-    @notebook = Notebook.new(notebook_params)
+    user_id = params[:user_id]
 
-    if @notebook.save
-      render json: @notebook, status: :created
+    if user_id != current_user.id.to_s
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+      return
     else
-      render json: @notebook.errors, status: :unprocessable_entity
+      @notebook = Notebook.new(notebook_params)
+
+      if @notebook.save
+        render json: @notebook, status: :created
+      else
+        render json: @notebook.errors, status: :unprocessable_entity
+      end
     end
   end
 
