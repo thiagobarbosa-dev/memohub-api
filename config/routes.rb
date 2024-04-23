@@ -4,7 +4,9 @@ Rails.application.routes.draw do
       post '/login', to: 'sessions#create'
       resources :users do
         resources :notebooks do
-          resources :sections
+          resources :sections do
+            resources :pages
+          end
         end
       end
     end

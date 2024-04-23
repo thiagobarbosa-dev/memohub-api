@@ -9,3 +9,4 @@
 load 'db/seed/user_seeds.rb'
 load 'db/seed/notebook_seeds.rb'
 load 'db/seed/section_seeds.rb'
+load 'db/seed/page_seeds.rb'
